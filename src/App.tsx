@@ -4,20 +4,26 @@ import RestaurantList from './components/RestaurantList';
 import Footer from './components/Footer';
 import { fetchRestaurantsByPostcode } from './api/restaurantsApi';
 import type { Restaurant } from './types/restaurant';
+import RestaurantListSkeleton from './components/RestaurantListSkeleton';
 
 function App() {
   const [postcode, setPostcode] = useState('');
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   
   const handleSearch = async () => {
     try {
       setError('');
+      setIsLoading(true);
+  
       const fetchedRestaurants = await fetchRestaurantsByPostcode(postcode);
       setRestaurants(fetchedRestaurants);
     } catch (error) {
       setError('Failed to fetch restaurants. Please try again.');
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -35,7 +41,11 @@ function App() {
             <p className="mb-4 text-sm font-medium text-red-600">{error}</p>
           )}
 
-          <RestaurantList restaurants={restaurants} />
+          {isLoading ? (
+            <RestaurantListSkeleton />
+          ) : (
+            <RestaurantList restaurants={restaurants} />
+          )}
         </div>
 
         <Footer />
