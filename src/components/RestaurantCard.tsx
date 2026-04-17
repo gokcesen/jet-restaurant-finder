@@ -1,7 +1,7 @@
-import type { Restaurant } from '../types/restaurant'
+import type { Restaurant } from '../types/restaurant';
 
 type RestaurantCardProps = {
-  restaurant: Restaurant
+  restaurant: Restaurant;
 }
 
 function RestaurantCard({ restaurant }: RestaurantCardProps) {
@@ -28,4 +28,4 @@ function RestaurantCard({ restaurant }: RestaurantCardProps) {
   )
 }
 
-export default RestaurantCard
+export default RestaurantCard;
