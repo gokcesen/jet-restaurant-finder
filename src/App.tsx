@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import { fetchRestaurantsByPostcode } from './api/restaurantsApi';
 import type { Restaurant } from './types/restaurant';
 import RestaurantListSkeleton from './components/RestaurantListSkeleton';
+import { isValidUkPostcode } from './utils/validation';
 
 function App() {
   const [postcode, setPostcode] = useState('');
@@ -13,14 +14,29 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   
   const handleSearch = async () => {
+    const trimmedPostcode = postcode.trim();
+  
+    if (!trimmedPostcode) {
+      setError('Please enter a UK postcode.');
+      setRestaurants([]);
+      return;
+    }
+  
+    if (!isValidUkPostcode(trimmedPostcode)) {
+      setError('Please enter a valid UK postcode.');
+      setRestaurants([]);
+      return;
+    }
+  
     try {
       setError('');
       setIsLoading(true);
   
-      const fetchedRestaurants = await fetchRestaurantsByPostcode(postcode);
+      const fetchedRestaurants = await fetchRestaurantsByPostcode(trimmedPostcode);
       setRestaurants(fetchedRestaurants);
     } catch (error) {
       setError('Failed to fetch restaurants. Please try again.');
+      setRestaurants([]);
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -36,7 +52,7 @@ function App() {
           onSubmit={handleSearch}
         />
 
-        <div>
+        <div className="flex-1">
           {error && (
             <p className="mb-4 text-sm font-medium text-red-600">{error}</p>
           )}
