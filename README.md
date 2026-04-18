@@ -1,73 +1,56 @@
-# React + TypeScript + Vite
+# Restaurant Finder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small React application built for the Just Eat Takeaway Early Careers Software Engineering take-home assignment.
 
-Currently, two official plugins are available:
+This app allows users to search restaurants by UK postcode using the provided API and displays a limited set of restaurant information in a simple responsive interface.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## What this app does
 
-## React Compiler
+Given a UK postcode, the app fetches restaurant data from the provided Just Eat API and displays the first 10 restaurants returned.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+For each restaurant, the app shows:
 
-## Expanding the ESLint configuration
+- Name
+- Cuisines
+- Rating as a number
+- Address
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Current features
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Search restaurants by UK postcode
+- Fetch real data from the provided API
+- Display only the required restaurant fields
+- Limit results to the first 10 restaurants
+- Responsive layout for desktop and mobile
+- Navbar with search input
+- Mobile search toggle in the navbar
+- Loading skeleton while restaurant data is being fetched
+- Basic search state handling:
+  - empty input validation
+  - loading state
+  - API error state
+  - no results state
+  - initial empty state before search
+- Footer section
+- Clean mapping from raw API response to a simpler UI-friendly restaurant shape
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Tech stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Getting started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Make sure you have these installed:
+
+- Node.js
+- npm
+
+### Install dependencies
+
+```bash
+npm install
