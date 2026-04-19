@@ -5,7 +5,11 @@ export const navbarStyles = {
     'flex items-center justify-between gap-4',
   leftSection:
     'flex items-center gap-6',
-  logo:
+  logoWrapper:
+    'flex items-center gap-3',
+  logoImage:
+    'h-10 w-10 rounded-full object-cover',
+  logoText:
     'text-xl font-bold text-orange-600',
   homeLink:
     'rounded-full px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100',
