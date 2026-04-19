@@ -1,6 +1,8 @@
+import { footerStyles as styles } from './Footer.styles';
+
 function Footer() {
   return (
-    <footer className="pt-10 text-center text-sm text-slate-500">
+    <footer className={styles.container}>
       © 2026 Gokce. All rights reserved.
     </footer>
   );

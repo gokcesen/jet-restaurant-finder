@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import Navbar from './components/Navbar';
-import RestaurantList from './components/RestaurantList';
-import Footer from './components/Footer';
+import Navbar from './components/layout/Navbar/Navbar';
+import RestaurantList from './components/restaurant/RestaurantList/RestaurantList';
+import Footer from './components/layout/Footer/Footer';
 import { fetchRestaurantsByPostcode } from './api/restaurantsApi';
 import type { Restaurant } from './types/restaurant';
-import RestaurantListSkeleton from './components/RestaurantListSkeleton';
+import RestaurantListSkeleton from './components/restaurant/RestaurantListSkeleton/RestaurantListSkeleton';
 import { isValidUkPostcode } from './utils/validation';
 
 function App() {

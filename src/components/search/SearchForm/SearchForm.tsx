@@ -1,3 +1,5 @@
+import { searchFormStyles as styles } from './SearchForm.styles';
+
 type SearchFormProps = {
   postcode: string;
   onPostcodeChange: (postcode: string) => void;
@@ -11,14 +13,14 @@ function SearchForm({
 }: SearchFormProps) {
   return (
     <form
-      className="flex w-full flex-col gap-3 sm:max-w-md sm:flex-row"
+      className={styles.form}
       onSubmit={(event) => {
         event.preventDefault();
         onSubmit();
       }}
     >
       <input
-        className="w-full rounded-full border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-orange-500 focus:ring-2 focus:ring-orange-100"
+        className={styles.input}
         type="text"
         value={postcode}
         onChange={(event) => onPostcodeChange(event.target.value)}
@@ -26,7 +28,7 @@ function SearchForm({
       />
 
       <button
-        className="rounded-full bg-orange-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-700"
+        className={styles.button}
         type="submit"
       >
         Search

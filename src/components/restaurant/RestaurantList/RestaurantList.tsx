@@ -1,5 +1,6 @@
-import type { Restaurant } from '../types/restaurant';
-import RestaurantCard from './RestaurantCard';
+import type { Restaurant } from '../../../types/restaurant';
+import RestaurantCard from '../RestaurantCard/RestaurantCard';
+import { restaurantListStyles as styles } from './RestaurantList.styles';
 
 type RestaurantListProps = {
   restaurants: Restaurant[];
@@ -7,7 +8,7 @@ type RestaurantListProps = {
 
 function RestaurantList({ restaurants }: RestaurantListProps) {
   return (
-    <section className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+    <section className={styles.container}>
       {restaurants.map((restaurant) => (
         <RestaurantCard key={restaurant.id} restaurant={restaurant} />
       ))}
