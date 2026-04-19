@@ -32,7 +32,10 @@ const formatAddress = (address?: ApiAddress): string => {
     return 'Address unavailable';
   }
 
-  const firstLine = address.firstLine?.replace(/\n/g, ', ').trim();
+  const firstLine = address.firstLine
+  ?.replace(/,\s*\n/g, ', ')
+  .replace(/\n/g, ', ')
+  .trim();
   const addressParts = [firstLine, address.city, address.postalCode].filter(Boolean);
 
   return addressParts.length > 0 ? addressParts.join(', ') : 'Address unavailable';
