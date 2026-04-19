@@ -20,7 +20,7 @@ function RestaurantCard({ restaurant }: RestaurantCardProps) {
           </h2>
 
           <span className="shrink-0 rounded-full bg-orange-50 px-3 py-1 text-sm font-semibold text-orange-700">
-            ★ {restaurant.rating}
+            {restaurant.rating !== null ? `★ ${restaurant.rating}` : '★ N/A'}
           </span>
         </div>
 

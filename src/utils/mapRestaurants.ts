@@ -12,6 +12,7 @@ type ApiAddress = {
 
 type ApiRating = {
   starRating?: number;
+  count?: number;
 };
 
 type ApiRestaurant = {
@@ -47,7 +48,10 @@ export const mapRestaurants = (
       restaurant.cuisines
         ?.map((cuisine) => cuisine.name)
         .filter((cuisine): cuisine is string => Boolean(cuisine)) ?? [],
-    rating: restaurant.rating?.starRating ?? 0,
+    rating:
+      restaurant.rating?.count && restaurant.rating.count > 0
+        ? restaurant.rating.starRating ?? null
+        : null,
     address: formatAddress(restaurant.address),
   }));
 };
