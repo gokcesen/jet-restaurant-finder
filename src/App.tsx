@@ -6,14 +6,18 @@ import { fetchRestaurantsByPostcode } from './api/restaurantsApi';
 import type { Restaurant } from './types/restaurant';
 import RestaurantListSkeleton from './components/restaurant/RestaurantListSkeleton/RestaurantListSkeleton';
 import { isValidUkPostcode } from './utils/validation';
+import WelcomePanel from './components/layout/WelcomePanel/WelcomePanel';
 
 function App() {
   const [postcode, setPostcode] = useState('');
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showWelcomePanel, setShowWelcomePanel] = useState(true);
   
   const handleSearch = async () => {
+    setShowWelcomePanel(false);
+
     const trimmedPostcode = postcode.trim();
   
     if (!trimmedPostcode) {
@@ -50,20 +54,26 @@ function App() {
           postcode={postcode}
           onPostcodeChange={setPostcode}
           onSubmit={handleSearch}
+          onHomeClick={() => setShowWelcomePanel(true)}
         />
 
         <div className="flex-1">
-          {error && (
-            <p className="mb-4 text-sm font-medium text-red-600">{error}</p>
-          )}
-
-          {isLoading ? (
-            <RestaurantListSkeleton />
+          {showWelcomePanel ? (
+            <WelcomePanel />
           ) : (
-            <RestaurantList restaurants={restaurants} />
+            <>
+              {error && (
+                <p className="mb-4 text-sm font-medium text-red-600">{error}</p>
+              )}
+
+              {isLoading ? (
+                <RestaurantListSkeleton />
+              ) : (
+                <RestaurantList restaurants={restaurants} />
+              )}
+            </>
           )}
         </div>
-
         <Footer />
       </div>
     </main>

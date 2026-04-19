@@ -8,9 +8,10 @@ type NavbarProps = {
   postcode: string;
   onPostcodeChange: (postcode: string) => void;
   onSubmit: () => void;
+  onHomeClick: () => void;
 };
 
-function Navbar({ postcode, onPostcodeChange, onSubmit }: NavbarProps) {
+function Navbar({ postcode, onPostcodeChange, onSubmit, onHomeClick }: NavbarProps) {
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
 
   return (
@@ -31,6 +32,10 @@ function Navbar({ postcode, onPostcodeChange, onSubmit }: NavbarProps) {
           <a
             href="#"
             className={styles.homeLink}
+            onClick={(event) => {
+              event.preventDefault();
+              onHomeClick();
+            }}
           >
             Home
           </a>
