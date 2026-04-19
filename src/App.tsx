@@ -8,15 +8,17 @@ import RestaurantListSkeleton from './components/restaurant/RestaurantListSkelet
 import { isValidUkPostcode } from './utils/validation';
 import WelcomePanel from './components/layout/WelcomePanel/WelcomePanel';
 import ValidationPanel from './components/layout/ValidationPanel/ValidationPanel';
+import SearchResultPanel from './components/layout/SearchResultPanel/SearchResultPanel';
 
 function App() {
   const [postcode, setPostcode] = useState('');
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
-  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showWelcomePanel, setShowWelcomePanel] = useState(true);
   const [validationTitle, setValidationTitle] = useState('');
   const [validationMessage, setValidationMessage] = useState(''); 
+  const [searchResultTitle, setSearchResultTitle] = useState('');
+  const [searchResultMessage, setSearchResultMessage] = useState('');
   
   const handleSearch = async () => {
     setShowWelcomePanel(false);
@@ -26,7 +28,8 @@ function App() {
     if (!trimmedPostcode) {
       setValidationTitle('Postcode required');
       setValidationMessage('Enter a UK postcode in the search bar to continue.');
-      setError('');
+      setSearchResultTitle('');
+      setSearchResultMessage('');
       setRestaurants([]);
       return;
     }
@@ -36,7 +39,8 @@ function App() {
       setValidationMessage(
         `We couldn't find results for "${trimmedPostcode}". Please check the spelling and try again with a valid UK postcode.`,
       );
-      setError('');
+      setSearchResultTitle('');
+      setSearchResultMessage('');
       setRestaurants([]);
       return;
     }
@@ -44,13 +48,27 @@ function App() {
     try {
       setValidationTitle('');
       setValidationMessage('');
-      setError('');
+      setSearchResultTitle('');
+      setSearchResultMessage('');
       setIsLoading(true);
   
       const fetchedRestaurants = await fetchRestaurantsByPostcode(trimmedPostcode);
+  
+      if (fetchedRestaurants.length === 0) {
+        setSearchResultTitle('No restaurants found');
+        setSearchResultMessage(
+          'We could not find any restaurants for this postcode. Try another nearby UK postcode and search again.',
+        );
+        setRestaurants([]);
+        return;
+      }
+  
       setRestaurants(fetchedRestaurants);
     } catch (error) {
-      setError('Failed to fetch restaurants. Please try again.');
+      setSearchResultTitle('Something went wrong');
+      setSearchResultMessage(
+        'We could not load restaurant data right now. Please try again.',
+      );
       setRestaurants([]);
       console.error(error);
     } finally {
@@ -76,8 +94,11 @@ function App() {
               title={validationTitle}
               message={validationMessage}
             />
-          ) : error ? (
-            <p className="mb-4 text-sm font-medium text-red-600">{error}</p>
+          ) : searchResultMessage ? (
+            <SearchResultPanel
+              title={searchResultTitle}
+              message={searchResultMessage}
+            />
           ) : isLoading ? (
             <RestaurantListSkeleton />
           ) : (
