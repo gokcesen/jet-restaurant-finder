@@ -7,6 +7,7 @@ import type { Restaurant } from './types/restaurant';
 import RestaurantListSkeleton from './components/restaurant/RestaurantListSkeleton/RestaurantListSkeleton';
 import { isValidUkPostcode } from './utils/validation';
 import WelcomePanel from './components/layout/WelcomePanel/WelcomePanel';
+import ValidationPanel from './components/layout/ValidationPanel/ValidationPanel';
 
 function App() {
   const [postcode, setPostcode] = useState('');
@@ -14,25 +15,35 @@ function App() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showWelcomePanel, setShowWelcomePanel] = useState(true);
+  const [validationTitle, setValidationTitle] = useState('');
+  const [validationMessage, setValidationMessage] = useState(''); 
   
   const handleSearch = async () => {
     setShowWelcomePanel(false);
-
+  
     const trimmedPostcode = postcode.trim();
   
     if (!trimmedPostcode) {
-      setError('Please enter a UK postcode.');
+      setValidationTitle('Postcode required');
+      setValidationMessage('Enter a UK postcode in the search bar to continue.');
+      setError('');
       setRestaurants([]);
       return;
     }
   
     if (!isValidUkPostcode(trimmedPostcode)) {
-      setError('Please enter a valid UK postcode.');
+      setValidationTitle("We couldn't find that postcode");
+      setValidationMessage(
+        `We couldn't find results for "${trimmedPostcode}". Please check the spelling and try again with a valid UK postcode.`,
+      );
+      setError('');
       setRestaurants([]);
       return;
     }
   
     try {
+      setValidationTitle('');
+      setValidationMessage('');
       setError('');
       setIsLoading(true);
   
@@ -60,20 +71,20 @@ function App() {
         <div className="flex-1">
           {showWelcomePanel ? (
             <WelcomePanel />
+          ) : validationMessage ? (
+            <ValidationPanel
+              title={validationTitle}
+              message={validationMessage}
+            />
+          ) : error ? (
+            <p className="mb-4 text-sm font-medium text-red-600">{error}</p>
+          ) : isLoading ? (
+            <RestaurantListSkeleton />
           ) : (
-            <>
-              {error && (
-                <p className="mb-4 text-sm font-medium text-red-600">{error}</p>
-              )}
-
-              {isLoading ? (
-                <RestaurantListSkeleton />
-              ) : (
-                <RestaurantList restaurants={restaurants} />
-              )}
-            </>
+            <RestaurantList restaurants={restaurants} />
           )}
         </div>
+
         <Footer />
       </div>
     </main>
