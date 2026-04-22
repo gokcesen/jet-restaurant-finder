@@ -28,6 +28,7 @@ This project satisfies the required criteria from the assignment brief:
 - **Vite** for development tooling and local build setup
 - **Tailwind CSS** for styling
 - **Vitest** for unit testing
+- **Vercel** for deployment
 
 
 ## Design and Architecture Choices
