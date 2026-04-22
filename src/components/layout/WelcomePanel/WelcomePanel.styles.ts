@@ -8,7 +8,7 @@ export const welcomePanelStyles = {
   title:
     'text-left text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl',
   description:
-    'mt-4 max-w-3xl text-left text-sm leading-7 text-slate-600 sm:text-base',
+    'mt-4 max-w-5xl text-left text-sm leading-7 text-slate-600 sm:text-base',
   infoGrid:
     'mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3',
   infoCard:
