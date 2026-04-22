@@ -1,6 +1,8 @@
 # Restaurant Finder
 
-A React + TypeScript take-home project for the Just Eat Takeaway.com.
+Live demo deployed on Vercel: [Restaurant Finder](https://jet-restaurant-finder-five.vercel.app)
+
+A React + TypeScript take-home project for Just Eat Takeaway.com.
 
 This application accepts a UK postcode, calls the provided JET API endpoint, and displays restaurant data in a clean interface.
 
@@ -30,7 +32,7 @@ This project satisfies the required criteria from the assignment brief:
 
 ## Design and Architecture Choices
 
-I chose a small client-side architecture because the assignment is focused on fetching, transforming, and displaying restaurant data rather than building a more complex real-world system. This also keeps deployment simple.
+I chose a small client-side architecture because the assignment is focused on fetching, transforming, and displaying restaurant data rather than building a more complex system. This also keeps deployment simple.
 
 I structured the solution to keep business logic testable and UI components focused on rendering:
 
@@ -52,13 +54,13 @@ This separation improves readability and makes the core logic easier to unit tes
 
 ## Trade-offs and Limitations
 
-Given the scope of the assignment, I prioritized correctness, clarity, and core user experience over a more complex architecture:
+In my implementation, I prioritized correctness, clarity, and user experience instead of a more complex architecture:
 
 - `useRestaurantSearch` currently handles several responsibilities in one hook to keep the implementation simple. In a larger project, I would split this into smaller hooks or a more structured state management approach.
-- Validation and search flow are handled together for practicality. In a larger application, I would separate validation logic more clearly from UI state handling.
+- Validation and search flow are handled together to make testing easier. In a larger project, I would separate validation logic more clearly from UI state handling.
 - Test coverage focuses on core logic (`mapRestaurants` and `validation`) rather than full component/integration testing.
-- The first-10 constraint is applied directly in the mapping layer to match the assignment brief. If pagination or show-more behavior were added later, this would need to become configurable.
-- The app uses a Vite proxy in local development to avoid CORS issues. For deployment, this would need a production-ready alternative such as a Vercel function or rewrite.
+- The first-10 constraint is applied directly in the mapping layer to match the assignment requirements. If pagination or show-more behavior were added later, this would need to become configurable.
+- The app uses a Vite proxy in local development to avoid CORS issues. For the Vercel deployment, I needed to add the Vercel rewrite in the `vercel.json` file.
 
 
 ## Data Handling Notes
@@ -99,7 +101,7 @@ UI states are explicitly separated:
 - Welcome panel on first load
 - Validation panel for empty/invalid input
 - Loading skeleton while fetching
-- Fetch error message for failed requests
+- Fetch error message for the failed requests
 - No-results message when API returns no restaurants
 - Restaurant list on success
 
@@ -125,7 +127,7 @@ npm run dev
 Then open the local URL shown in terminal (typically http://localhost:5173).
 
 
-### Build for Production
+### Build for Production (used in Vercel deployment)
 ```bash
 npm run build
 ```
