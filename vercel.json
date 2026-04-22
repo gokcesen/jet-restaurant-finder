@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://uk.api.just-eat.io/:path*"
+    }
+  ]
+}
