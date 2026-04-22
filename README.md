@@ -52,6 +52,15 @@ I structured the solution to keep business logic testable and UI components focu
 
 This separation improves readability and makes the core logic easier to unit test. Moving response mapping and search logic out of the components also made it easier to test data transformation and validation independently from rendering.
 
+## Responsive Design
+
+The interface was designed to be responsive across different screen sizes.
+
+- On larger screens, the layout uses wider content areas and multi-column sections for readability.
+- On smaller screens, components stack vertically and spacing adapts to preserve usability.
+- The navigation and search flow were also adjusted for mobile so the interface remains easy to use on mobile.
+
+
 
 ## Trade-offs and Limitations
 
@@ -189,5 +198,20 @@ I treated AI outputs as suggestions only and reviewed, adapted, and verified the
 
 ## Screenshots
 
-![Restaurant Finder Screenshot](./src/assets/Homepage.png)
-![Restaurant Finder Screenshot](./src/assets/SearchResults.png)
+### Desktop
+
+<table>
+  <tr>
+    <td><img src="./src/assets/Homepage.png" alt="Homepage desktop view" width="100%"></td>
+    <td><img src="./src/assets/SearchResults.png" alt="Search results desktop view" width="100%"></td>
+  </tr>
+</table>
+
+### Mobile
+
+<table>
+  <tr>
+    <td><img src="./src/assets/HomepageMobile.png" alt="Homepage mobile view" width="100%"></td>
+    <td><img src="./src/assets/SearchResultsMobile.png" alt="Search results mobile view" width="100%"></td>
+  </tr>
+</table>
